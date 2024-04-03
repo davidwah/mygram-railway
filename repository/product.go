@@ -6,7 +6,7 @@ import (
 )
 
 type ProductRepo struct {
-	db *database.Postgres
+	postgres *database.Postgres
 }
 
 type ProductImpl interface {
@@ -15,6 +15,14 @@ type ProductImpl interface {
 
 func NewProductRepo(db *database.Postgres) *ProductRepo {
 	return &ProductRepo{
-		db: db,
+		postgres: db,
 	}
+}
+
+func (r *ProductRepo) FindProductByID(id int64) (*core.Product, error) {
+	product := core.Product{}
+	err := r.postgres.DB.First(&product, "id=?", id).Error
+
+	return &product, err
+
 }
