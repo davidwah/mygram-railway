@@ -10,16 +10,22 @@ import (
 
 func main() {
 	r := gin.Default()
-	postgres := database.NewPostgres()
-	if postgres.Err != nil {
-		panic(postgres.Err)
+	DB := database.NewPostgres()
+	if DB.Err != nil {
+		panic(DB.Err)
 	}
 
-	productRepo := repository.NewProductRepo(postgres)
+	productRepo := repository.NewProductRepo(DB)
 	productService := service.NewProductService(productRepo)
 	productHandler := handler.NewProductHandler(productService)
 
+	// user
+	userRepo := repository.NewUserRepo(DB)
+	userService := service.NewUserService(userRepo)
+	userHandler := handler.NewUserHandler(userService)
+
 	r.GET("/product/:id", productHandler.FindOneProduct)
+	r.GET("/user/:id", userHandler.FindOneUser)
 
 	r.Run(":8080")
 
