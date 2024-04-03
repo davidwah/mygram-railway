@@ -22,8 +22,10 @@ func (s *UserService) FindOneUser(id int) (*core.FindOneUserResponse, error) {
 	}
 
 	resp := &core.FindOneUserResponse{
-		UserName: user.Name,
-		Quantity: user.Quantity,
+		UserName:       user.Name,
+		Email:          user.Email,
+		Age:            user.Age,
+		ProfilImageURL: user.ProfilImageURL,
 	}
 
 	return resp, nil
