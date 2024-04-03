@@ -6,17 +6,17 @@ import (
 )
 
 type ProductService struct {
-	productRepo repository.ProductRepo
+	productRepo *repository.ProductRepo
 }
 
-func NewService(productRepo repository.ProductRepo) *ProductService {
+func NewProductService(productRepo *repository.ProductRepo) *ProductService {
 	return &ProductService{
 		productRepo: productRepo,
 	}
 }
 
 func (s *ProductService) FindOneProduct(id int) (*core.FindOneProductResponse, error) {
-	product, err := s.productRepo.FindProductByID(int64(uint(id)))
+	product, err := s.productRepo.FindProductByID(uint(id))
 	if err != nil {
 		return nil, err
 	}
