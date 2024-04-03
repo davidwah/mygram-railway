@@ -7,3 +7,8 @@ type Product struct {
 	Name     string
 	Quantity int64
 }
+
+type FindOneProductResponse struct {
+	ProductName string `json:"product_name"`
+	Quantity    int64  `json:"quantity"`
+}
