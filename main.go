@@ -6,6 +6,7 @@ import (
 	"mygram-railway/handler"
 	"mygram-railway/repository"
 	"mygram-railway/service"
+	"os"
 )
 
 func main() {
@@ -27,6 +28,6 @@ func main() {
 	r.GET("/product/:id", productHandler.FindOneProduct)
 	r.GET("/user/:id", userHandler.FindOneUser)
 
-	r.Run(":8080")
+	r.Run(":" + os.Getenv("PORT"))
 
 }
