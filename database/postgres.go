@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"mygram-railway/core"
 	"os"
 )
 
@@ -18,6 +19,7 @@ func NewPostgres() *Postgres {
 		os.Getenv("PGDBNAME"), os.Getenv("PGPORT"))
 
 	db, err := gorm.Open(postgres.Open(dsn), nil)
+	db.Debug().AutoMigrate(&core.Product{}, &core.User{})
 
 	return &Postgres{
 		DB:  db,
